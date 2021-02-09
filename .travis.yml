@@ -6,4 +6,4 @@ services:
 before_install:
   - docker build -f Dockerfile.dev -t wildanazz/docker-react .
 script:
-  - docker run wildanazz/docker-react npm run test --coverage --watchAll=false
+  - docker run wildanazz/docker-react npm run test --watchAll=false
