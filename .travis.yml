@@ -1,6 +1,6 @@
 language: node.js
-sudo: required
 node_js: 14
+sudo: required
 services:
   - docker
 before_install:
