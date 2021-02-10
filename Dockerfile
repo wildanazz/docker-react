@@ -1,17 +1,21 @@
-FROM node:alpine
+FROM node:alpine as build
 
-WORKDIR '/app'
+WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
 
 COPY package.json ./
 
 RUN yarn install
 
-COPY . .
+COPY . ./
 
 RUN yarn run build
 
-FROM nginx
+FROM nginx:stable-alpine
 
-EXPOSE 8081
+COPY --from=build /app/build /usr/share/nginx/html
 
-COPY --from=0 /app/build /usr/share/nginx/html
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
